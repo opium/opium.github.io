@@ -14,4 +14,4 @@ opium = new Amygdala({
   }
 });
 
-opium.get('list').done(function (data) { console.log(data.files) });
+//opium.get('list').done(function (data) { console.log(data.files) });

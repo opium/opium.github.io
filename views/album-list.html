@@ -1,0 +1,21 @@
+<div class="container" ng-controller="AlbumListCtrl">
+    <div class="row">
+        <div class="col-md-2" ng-repeat="album in albumList">
+            <article>
+                <a href="{{ album.path }}" ng-if="album.type == 'file'" class="thumbnail">
+                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" />
+                    {{ album.name }}
+                </a>
+
+                <a href="#/{{ album.path }}" ng-if="album.type != 'file'">
+                    {{ album.name }}
+                </a>
+            </article>
+        </div>
+    </div>
+
+    <p>
+    Total number of albums: {{ albumList.length }}
+    </p>
+</div>
+
