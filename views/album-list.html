@@ -1,13 +1,22 @@
 <div class="container" ng-controller="AlbumListCtrl">
     <div class="row">
+        <div class="col-md-2" ng-if="parentDirectory">
+            <article>
+                <a href="#{{ parentDirectory }}" class="thumbnail">
+                    <i class="el-icon-chevron-left"></i>
+                    Parent
+                </a>
+            </article>
+        </div>
         <div class="col-md-2" ng-repeat="album in albumList">
             <article>
-                <a href="{{ album.path }}" ng-if="album.type == 'file'" class="thumbnail">
-                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" />
+                <a href="{{ album.image.original }}" ng-if="album.type == 'file'" class="thumbnail popup-image">
+                    <img ng-src="{{ album.image.thumbnails['square-200x200'] }}" />
                     {{ album.name }}
                 </a>
 
-                <a href="#/{{ album.path }}" ng-if="album.type != 'file'">
+                <a href="#{{ album.pathname }}" ng-if="album.type != 'file'" class="thumbnail">
+                    <i class="el-icon-folder"></i>
                     {{ album.name }}
                 </a>
             </article>

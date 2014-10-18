@@ -5,7 +5,11 @@ var opiumApp = angular.module('opiumApp', [
 
 function routeProvider($routeProvider) {
     $routeProvider
-    .when('/:path?', {
+    .when('/', {
+        templateUrl: 'views/album-list.html',
+        controller: 'AlbumListCtrl'
+    })
+    .when('/:path*', {
         templateUrl: 'views/album-list.html',
         controller: 'AlbumListCtrl'
     })
