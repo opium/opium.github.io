@@ -11,12 +11,13 @@
         <div class="col-md-2" ng-repeat="album in albumList">
             <article>
                 <a href="{{ album.image.original }}" ng-if="album.type == 'file'" class="thumbnail popup-image">
-                    <img ng-src="{{ album.image.thumbnails['square-200x200'] }}" />
+                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" />
                     {{ album.name }}
                 </a>
 
                 <a href="#{{ album.pathname }}" ng-if="album.type != 'file'" class="thumbnail">
-                    <i class="el-icon-folder"></i>
+                    <i class="el-icon-folder" ng-if="!album.thumbnails"></i>
+                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" ng-if="album.thumbnails" />
                     {{ album.name }}
                 </a>
             </article>
