@@ -1,6 +1,7 @@
 var opiumApp = angular.module('opiumApp', [
     'ngRoute',
-    'opiumControllers'
+    'opiumControllers',
+    'opiumRestClient'
 ]);
 
 function routeProvider($routeProvider) {
@@ -18,5 +19,11 @@ function routeProvider($routeProvider) {
     //})
 }
 
-opiumApp.config(['$routeProvider',routeProvider]);
+function resourceProvider($resourceProvider) {
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+    $resourceProvider.defaults.encodeSlashes = false;
+}
+
+opiumApp.config(['$routeProvider', routeProvider]);
+opiumApp.config(['$resourceProvider', resourceProvider]);
 
