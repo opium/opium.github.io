@@ -10,6 +10,11 @@
         </div>
         <div class="col-md-2" ng-repeat="album in folder.files">
             <article>
+                <a href="" ng-click="setPhoto(album.name)" ng-if="album.type == 'file'">
+                    <i class="el-icon-screen"></i>
+                    Set as main photo
+                </a>
+
                 <a ng-if="album.type == 'file'"
                     href="{{ album.image.original }}"
                     class="thumbnail popup-image"
@@ -19,10 +24,6 @@
                 >
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" />
                     {{ album.name }}
-                </a>
-
-                <a href="" ng-click="setPhoto(album.name)">
-                    <i class="el-icon-screen"></i>
                 </a>
 
                 <a href="#{{ album.pathname }}" ng-if="album.type != 'file'" class="thumbnail">
