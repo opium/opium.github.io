@@ -24,10 +24,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            //var url = '/app_dev.php/v1/json/' + ($routeParams.path ? $routeParams.path : '');
-
-
-            return $resource('/app_dev.php/v1/json/:path', {path: '@current.path'}, {});
+            return $resource('/v1/json/:path', {path: '@current.path'}, {});
         }
     ]
 );
@@ -37,7 +34,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/json/:path/:photo', {path: '@current.path'}, {});
+            return $resource('/v1/json/:path/:photo', {path: '@current.path'}, {});
         }
     ]
 );
