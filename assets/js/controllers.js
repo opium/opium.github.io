@@ -26,10 +26,18 @@ opiumControllers.controller(
                     }
                 },
                 callbacks: {
-                    open: function (item) {
+                    open: function () {
                         var regex = /\/([^/]+)$/;
                         var name = regex.exec(this.currItem.src)[1];
-                        history.pushState({}, '', location.href + name);
+                        history.pushState({}, name, '#/' + $scope.folder.current.pathname + name);
+                    },
+                    change: function () {
+                        var regex = /\/([^/]+)$/;
+                        var name = regex.exec(this.currItem.src)[1];
+                        history.replaceState({}, name, '#/' + $scope.folder.current.pathname + name);
+                    },
+                    close: function () {
+                        history.pushState({}, name, '#/' + $scope.folder.current.pathname);
                     }
                 }
             });
