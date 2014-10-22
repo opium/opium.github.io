@@ -1,4 +1,12 @@
 <div class="container" ng-controller="AlbumListCtrl">
+    <div class="row" ng-if="folder.current.thumbnails['banner-1170x400']">
+        <img ng-src="{{ folder.current.thumbnails['banner-1170x400'] }}" width="1170" height="400" />
+    </div>
+
+    <h1>
+        {{ folder.current.name }}
+    </h1>
+
     <div class="row">
         <div class="col-md-2" ng-if="folder.parentDirectory">
             <article>
@@ -22,13 +30,13 @@
                     data-set-main-url="#{{ folder.current.path }}"
                     data-set-main-params="#{{ album.pathname }}"
                 >
-                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" />
+                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
                     {{ album.name }}
                 </a>
 
                 <a href="#{{ album.pathname }}" ng-if="album.type != 'file'" class="thumbnail">
                     <i class="el-icon-folder" ng-if="!album.thumbnails"></i>
-                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" ng-if="album.thumbnails" />
+                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" ng-if="album.thumbnails"}}" width="200" height="200" />
                     {{ album.name }}
                 </a>
             </article>
