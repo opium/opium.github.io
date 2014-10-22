@@ -6,6 +6,10 @@ var opiumApp = angular.module('opiumApp', [
 
 function routeProvider($routeProvider) {
     $routeProvider
+    .when('/:path*\/:photo.:extension', {
+        templateUrl: 'views/photo.html',
+        controller: 'PhotoCtrl'
+    })
     .when('/', {
         templateUrl: 'views/album-list.html',
         controller: 'AlbumListCtrl'
