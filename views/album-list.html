@@ -7,8 +7,8 @@
         {{ folder.current.name }}
     </h1>
 
-    <div class="row">
-        <div class="col-md-2" ng-if="folder.parentDirectory">
+    <div class="flex-container">
+        <div ng-if="folder.parentDirectory">
             <article>
                 <a href="#{{ folder.parentDirectory }}" class="thumbnail">
                     <i class="el-icon-chevron-left"></i>
@@ -16,7 +16,7 @@
                 </a>
             </article>
         </div>
-        <div class="col-md-2" ng-repeat="album in folder.files">
+        <div ng-repeat="album in folder.files">
             <article>
                 <a href="" ng-click="setPhoto(album.name)" ng-if="album.type == 'file'">
                     <i class="el-icon-screen"></i>
@@ -31,7 +31,9 @@
                     data-set-main-params="#{{ album.pathname }}"
                 >
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
-                    {{ album.name }}
+                    <div class="caption">
+                        {{ album.name }}
+                    </div>
                 </a>
 
                 <a href="#{{ album.pathname }}" ng-if="album.type != 'file'" class="thumbnail">
