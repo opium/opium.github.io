@@ -34,7 +34,11 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/directories/:id', {id: '@current.id'}, {});
+            return $resource('/app_dev.php/v1/directories/:id', {id: '@id'},
+                {
+                    update: { method: 'PUT' }
+                }
+            );
         }
     ]
 );
