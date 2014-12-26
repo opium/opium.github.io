@@ -10,7 +10,7 @@ opiumControllers.controller(
             // TODO fix for this https://github.com/angular/angular.js/pull/7940
             var path = $routeParams.path;
             if (path) {
-                path = path.replace(/\//g, '_slash_');
+                path = '/' + encodeURIComponent(path);
             }
             $scope.folder = Album.get({path: path});
 

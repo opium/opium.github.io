@@ -1,22 +1,22 @@
 <div class="container" ng-controller="AlbumListCtrl">
-    <div class="row" ng-if="folder.current.thumbnails['banner-1170x400']">
-        <img ng-src="{{ folder.current.thumbnails['banner-1170x400'] }}" width="1170" height="400" />
+    <div class="row" ng-if="folder.thumbnails['banner-1170x400']">
+        <img ng-src="{{ folder.thumbnails['banner-1170x400'] }}" width="1170" height="400" />
     </div>
 
     <h1>
-        {{ folder.current.name }}
+        {{ folder.name }}
     </h1>
 
-    <div class="flex-container">
-        <div ng-if="folder.parentDirectory">
+    <div class="flex-container"t>
+        <div ng-if="folder._links.parent">
             <article>
-                <a href="#{{ folder.parentDirectory }}" class="thumbnail">
+                <a href="#{{ folder._links.parent.href }}" class="thumbnail">
                     <i class="el-icon-chevron-left"></i>
                     Parent
                 </a>
             </article>
         </div>
-        <div ng-repeat="album in folder.files">
+        <div ng-repeat="album in folder.children">
             <article>
                 <a href="" ng-click="setPhoto(album.name)" ng-if="album.type == 'file'">
                     <i class="el-icon-screen"></i>
@@ -27,7 +27,7 @@
                     href="{{ album.image.original }}"
                     class="thumbnail popup-image"
                     title="{{ album.name }}"
-                    data-set-main-url="#{{ folder.current.path }}"
+                    data-set-main-url="#{{ folder.path }}"
                     data-set-main-params="#{{ album.pathname }}"
                 >
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
@@ -46,7 +46,7 @@
     </div>
 
     <p>
-    Total number of items: {{ folder.files.length }}
+    Total number of items: {{ folder.children.length }}
     </p>
 </div>
 
