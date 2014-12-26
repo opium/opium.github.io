@@ -20,11 +20,21 @@
 var opiumRestClient = angular.module('opiumRestClient', ['ngResource']);
 
 opiumRestClient.factory(
+    'RootAlbum',
+    [
+        '$resource',
+        function($resource) {
+            return $resource('/app_dev.php/v1/directories', {}, {});
+        }
+    ]
+);
+
+opiumRestClient.factory(
     'Album',
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/directories:path', {path: '@current.pathname'}, {});
+            return $resource('/app_dev.php/v1/directories/:id', {id: '@current.pathname'}, {});
         }
     ]
 );

@@ -8,17 +8,17 @@
     </h1>
 
     <div class="flex-container"t>
-        <div ng-if="folder._links.parent">
+        <div ng-if="folder.parent">
             <article>
-                <a href="#{{ folder._links.parent.href }}" class="thumbnail">
+                <a href="#{{ folder.parent.pathname }}" class="thumbnail">
                     <i class="el-icon-chevron-left"></i>
-                    Parent
+                    {{ folder.parent.name }}
                 </a>
             </article>
         </div>
         <div ng-repeat="album in folder.children">
             <article>
-                <a href="" ng-click="setPhoto(album.name)" ng-if="album.type == 'file'">
+                <a href="" ng-click="setPhoto(album)" ng-if="album.type == 'file'">
                     <i class="el-icon-screen"></i>
                     Set as main photo
                 </a>

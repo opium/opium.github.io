@@ -5,14 +5,16 @@ var opiumControllers = angular.module('opiumControllers', []);
 opiumControllers.controller(
     'AlbumListCtrl',
     [
-        '$scope', '$routeParams', 'Album',
-        function AlbumListCtrl($scope, $routeParams, Album) {
+        '$scope', '$routeParams', 'Album', 'RootAlbum',
+        function AlbumListCtrl($scope, $routeParams, Album, RootAlbum) {
             // TODO fix for this https://github.com/angular/angular.js/pull/7940
             var path = $routeParams.path;
             if (path) {
-                path = '/' + encodeURIComponent(path);
+                path = encodeURIComponent(path);
+                $scope.folder = Album.get({id: path});
+            } else {
+                $scope.folder = RootAlbum.get();
             }
-            $scope.folder = Album.get({path: path});
 
             $('.container').magnificPopup({
                 delegate: '.popup-image',
@@ -43,8 +45,8 @@ opiumControllers.controller(
             });
 
             $scope.setPhoto = function(photo) {
-                $scope.folder.current.photo = photo;
-                $scope.folder.$save();
+                $scope.folder.thumbnails['banner-1170x400'] = photo.thumbnails['banner-1170x400'];
+                $scope.folder.$save()
             };
         }
     ]
