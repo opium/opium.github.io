@@ -34,7 +34,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/directories/:id', {id: '@current.pathname'}, {});
+            return $resource('/app_dev.php/v1/directories/:id', {id: '@current.id'}, {});
         }
     ]
 );

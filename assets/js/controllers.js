@@ -46,7 +46,7 @@ opiumControllers.controller(
 
             $scope.setPhoto = function(photo) {
                 $scope.folder.thumbnails['banner-1170x400'] = photo.thumbnails['banner-1170x400'];
-                $scope.folder.$save()
+                $scope.folder.$save({ id: $scope.folder.id })
             };
         }
     ]
