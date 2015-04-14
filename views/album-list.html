@@ -1,6 +1,6 @@
 <div class="container" ng-controller="AlbumListCtrl">
-    <div class="row" ng-if="folder.directory_thumbnail.thumbnails['banner-1170x400']">
-        <img ng-src="{{ folder.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170" height="400" />
+    <div class="row" ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']">
+        <img ng-src="{{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170" height="400" />
     </div>
 
     <h1>
@@ -10,7 +10,7 @@
     <div class="flex-container"t>
         <div ng-if="folder.parent">
             <article>
-                <a href="#{{ folder.parent.pathname }}" class="thumbnail">
+                <a href="#/{{ folder.parent.slug }}" class="thumbnail">
                     <i class="el-icon-chevron-left"></i>
                     {{ folder.parent.name }}
                 </a>
@@ -24,7 +24,7 @@
                 </a>
 
                 <a ng-if="album.type == 'file'"
-                    href="{{ album.image.original }}"
+                    href="#{{ album.slug }}"
                     class="thumbnail popup-image"
                     title="{{ album.name }}"
                     data-set-main-url="#{{ folder.path }}"
@@ -36,9 +36,9 @@
                     </div>
                 </a>
 
-                <a href="#{{ album.pathname }}" ng-if="album.type != 'file'" class="thumbnail">
-                    <i class="el-icon-folder" ng-if="!album.thumbnails"></i>
-                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" ng-if="album.thumbnails"}}" width="200" height="200" />
+                <a href="#/{{ album.slug }}" ng-if="album.type != 'file'" class="thumbnail">
+                    <i class="el-icon-folder" ng-if="!album._embedded.directory_thumbnail"></i>
+                    <img ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}" ng-if="album._embedded.directory_thumbnail"}}" width="200" height="200" />
                     {{ album.name }}
                 </a>
             </article>

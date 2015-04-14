@@ -16,6 +16,7 @@ opiumControllers.controller(
                 $scope.folder = RootAlbum.get();
             }
 
+            /*
             $('.container').magnificPopup({
                 delegate: '.popup-image',
                 type: 'image',
@@ -43,6 +44,7 @@ opiumControllers.controller(
                     }
                 }
             });
+            */
 
             $scope.setPhoto = function(photo) {
                 $scope.folder.directory_thumbnail = photo;
@@ -59,13 +61,12 @@ opiumControllers.controller(
         function PhotoCtrl($scope, $routeParams, Photo) {
             // TODO fix for this https://github.com/angular/angular.js/pull/7940
             var path = $routeParams.path;
-            if (path) {
-                path = path.replace(/\//g, '_slash_');
-            }
 
             var photo = $routeParams.photo + '.' + $routeParams.extension;
 
-            $scope.photo = Photo.get({ path: path, photo: photo });
+            var path = encodeURIComponent(path + '/' + photo);
+            $scope.photo = Photo.get({ path: path });
+            debugger;
         }
     ]
 );
