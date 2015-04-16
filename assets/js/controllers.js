@@ -10,7 +10,6 @@ opiumControllers.controller(
             // TODO fix for this https://github.com/angular/angular.js/pull/7940
             var path = $routeParams.path;
             if (path) {
-                path = encodeURIComponent(path);
                 $scope.folder = Album.get({id: path});
             } else {
                 $scope.folder = RootAlbum.get();
@@ -60,13 +59,9 @@ opiumControllers.controller(
         '$scope', '$routeParams', 'Photo',
         function PhotoCtrl($scope, $routeParams, Photo) {
             // TODO fix for this https://github.com/angular/angular.js/pull/7940
-            var path = $routeParams.path;
+            var id = $routeParams.photo;
 
-            var photo = $routeParams.photo + '.' + $routeParams.extension;
-
-            var path = encodeURIComponent(path + '/' + photo);
-            $scope.photo = Photo.get({ path: path });
-            debugger;
+            $scope.photo = Photo.get({ id: id });
         }
     ]
 );

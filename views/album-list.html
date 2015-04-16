@@ -24,7 +24,7 @@
                 </a>
 
                 <a ng-if="album.type == 'file'"
-                    href="#{{ album.slug }}"
+                    href="#/{{folder.slug}}/{{ album.slug }}"
                     class="thumbnail popup-image"
                     title="{{ album.name }}"
                     data-set-main-url="#{{ folder.path }}"
