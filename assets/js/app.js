@@ -23,11 +23,11 @@ function routeProvider($routeProvider) {
     //})
 }
 
-function resourceProvider($resourceProvider) {
-    $resourceProvider.defaults.stripTrailingSlashes = false;
-    $resourceProvider.defaults.encodeSlashes = false;
-}
+//function resourceProvider($resourceProvider) {
+    //$resourceProvider.defaults.stripTrailingSlashes = false;
+    //$resourceProvider.defaults.encodeSlashes = false;
+//}
 
 opiumApp.config(['$routeProvider', routeProvider]);
-opiumApp.config(['$resourceProvider', resourceProvider]);
+//opiumApp.config(['$resourceProvider', resourceProvider]);
 

@@ -1,6 +1,6 @@
-<div class="container" ng-controller="AlbumListCtrl">
-    <div class="row" ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']">
-        <img ng-src="{{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170" height="400" />
+<div class="container-fluid" ng-controller="AlbumListCtrl">
+    <div class="container" ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']">
+        <img ng-src="{{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170"  class="img-responsive" />
     </div>
 
     <h1>
@@ -17,30 +17,32 @@
             </article>
         </div>
         <div ng-repeat="album in folder.children">
-            <article>
-                <a href="" ng-click="setPhoto(album)" ng-if="album.type == 'file'">
+            <article class="thumbnail">
+            <!--
+                <a href="" ng-click="setCover(album)" ng-if="album.type == 'file'">
                     <i class="el-icon-screen"></i>
                     Set as main photo
                 </a>
+                -->
 
                 <a ng-if="album.type == 'file'"
                     href="#/{{folder.slug}}/{{ album.slug }}"
-                    class="thumbnail popup-image"
                     title="{{ album.name }}"
                     data-set-main-url="#{{ folder.path }}"
                     data-set-main-params="#{{ album.pathname }}"
                 >
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
-                    <div class="caption">
-                        {{ album.name }}
-                    </div>
                 </a>
 
-                <a href="#/{{ album.slug }}" ng-if="album.type != 'file'" class="thumbnail">
+                <a href="#/{{ album.slug }}" ng-if="album.type != 'file'">
                     <i class="el-icon-folder" ng-if="!album._embedded.directory_thumbnail"></i>
                     <img ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}" ng-if="album._embedded.directory_thumbnail"}}" width="200" height="200" />
-                    {{ album.name }}
                 </a>
+
+                <div class="caption">
+                    {{ album.name }}
+                </div>
+
             </article>
         </div>
     </div>
