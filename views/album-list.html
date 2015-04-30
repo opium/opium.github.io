@@ -4,27 +4,17 @@
     </div>
 
     <h1>
+        <a href="#/{{ folder.parent.slug }}" ng-if="folder.parent" class="small">
+            <i class="ion-chevron-left"></i>
+            {{ folder.parent.name }}
+        </a>
+
         {{ folder.name }}
     </h1>
 
-    <div class="flex-container"t>
-        <div ng-if="folder.parent">
-            <article>
-                <a href="#/{{ folder.parent.slug }}" class="thumbnail">
-                    <i class="el-icon-chevron-left"></i>
-                    {{ folder.parent.name }}
-                </a>
-            </article>
-        </div>
+    <div class="flex-container">
         <div ng-repeat="album in folder.children">
-            <article class="thumbnail">
-            <!--
-                <a href="" ng-click="setCover(album)" ng-if="album.type == 'file'">
-                    <i class="el-icon-screen"></i>
-                    Set as main photo
-                </a>
-                -->
-
+            <article class="opium-thumbnail">
                 <a ng-if="album.type == 'file'"
                     href="#/{{folder.slug}}/{{ album.slug }}"
                     title="{{ album.name }}"
@@ -34,8 +24,8 @@
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
                 </a>
 
-                <a href="#/{{ album.slug }}" ng-if="album.type != 'file'">
-                    <i class="el-icon-folder" ng-if="!album._embedded.directory_thumbnail"></i>
+                <a href="#/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
+                    <i class="ion-folder" ng-if="!album._embedded.directory_thumbnail"></i>
                     <img ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}" ng-if="album._embedded.directory_thumbnail"}}" width="200" height="200" />
                 </a>
 
@@ -47,7 +37,7 @@
         </div>
     </div>
 
-    <p>
+    <p class="text-right">
     Total number of items: {{ folder.children.length }}
     </p>
 </div>
