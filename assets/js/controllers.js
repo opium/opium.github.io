@@ -56,6 +56,26 @@ opiumControllers.controller(
                     $scope.previous();
                 }
             });
+
+
+            $scope.mapCenter = {};
+            $scope.markers = {};
+
+            $scope.photo.$promise.then(function(data) {
+                $scope.mapCenter = {
+                    lat: $scope.photo.position.lat,
+                    lng: $scope.photo.position.lng,
+                    zoom: 12
+                };
+
+                $scope.markers = {
+                    photo: {
+                        lat: $scope.photo.position.lat,
+                        lng: $scope.photo.position.lng,
+                        message: $scope.photo.name
+                    }
+                };
+            });
         }
     ]
 );

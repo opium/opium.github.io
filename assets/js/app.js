@@ -3,7 +3,8 @@ var opiumApp = angular.module('opiumApp', [
     'opiumControllers',
     'opiumRestClient',
     'ngTouch',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    'leaflet-directive'
 ]);
 
 function routeProvider($routeProvider) {
