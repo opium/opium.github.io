@@ -13,7 +13,11 @@
         Set as directory cover
     </a>
 
-    <div class="opium-photo-move-container">
+    <div 
+        class="opium-photo-move-container"
+        ng-swipe-right="previous()"
+        ng-swipe-left="next()"
+    >
         <img ng-src="{{ photo._links.original.href }}" class="img-responsive ion-load-c" />
 
         <div class="opium-photo-move opium-photo-previous"

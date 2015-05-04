@@ -1,7 +1,9 @@
 var opiumApp = angular.module('opiumApp', [
     'ngRoute',
     'opiumControllers',
-    'opiumRestClient'
+    'opiumRestClient',
+    'ngTouch',
+    'cfp.hotkeys'
 ]);
 
 function routeProvider($routeProvider) {

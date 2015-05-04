@@ -20,8 +20,8 @@ opiumControllers.controller(
 opiumControllers.controller(
     'PhotoCtrl',
     [
-        '$scope', '$routeParams', 'Photo', 'Album',
-        function PhotoCtrl($scope, $routeParams, Photo, Album) {
+        '$scope', '$routeParams', 'Photo', 'Album', 'hotkeys',
+        function PhotoCtrl($scope, $routeParams, Photo, Album, hotkeys) {
             var id = $routeParams.photo;
 
             $scope.photo = Photo.get({ id: id });
@@ -31,6 +31,31 @@ opiumControllers.controller(
                 parent._embedded.directory_thumbnail = { id: $scope.photo.id };
                 Album.update(parent);
             };
+
+            $scope.previous = function() {
+                if ($scope.photo.previous) {
+                    document.querySelector('.opium-photo-previous a').click();
+                }
+            };
+
+            $scope.next = function() {
+                if ($scope.photo.next) {
+                    document.querySelector('.opium-photo-next a').click();
+                }
+            };
+
+            hotkeys.add({
+                combo: 'right',
+                callback: function() {
+                    $scope.next();
+                }
+            });
+            hotkeys.add({
+                combo: 'left',
+                callback: function() {
+                    $scope.previous();
+                }
+            });
         }
     ]
 );
