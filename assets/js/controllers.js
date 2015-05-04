@@ -13,11 +13,6 @@ opiumControllers.controller(
             } else {
                 $scope.folder = RootAlbum.get();
             }
-
-            $scope.setCover = function(photo) {
-                $scope.folder._embedded.directory_thumbnail = photo;
-                $scope.folder.$update()
-            };
         }
     ]
 );
