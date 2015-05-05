@@ -13,31 +13,53 @@
         Set as directory cover
     </a>
 
-    <div 
-        class="opium-photo-move-container"
-        ng-swipe-right="previous()"
-        ng-swipe-left="next()"
-    >
-        <img ng-src="{{ photo._links.original.href }}" class="img-responsive ion-load-c" />
+    <div class="row">
+        <div class="col-md-8">
+            <div 
+                class="opium-photo-move-container mb1"
+                ng-swipe-right="previous()"
+                ng-swipe-left="next()"
+            >
+                <img ng-src="{{ photo._links.original.href }}" class="img-responsive ion-load-c" />
 
-        <div class="opium-photo-move opium-photo-previous"
-                ng-if="photo.previous"
-        >
-            <a href="#/{{photo.parent.slug}}/{{ photo.previous.slug }}">
-                <span>
-                    <i class="ion-chevron-left"></i>
-                </span>
-            </a>
+                <div class="opium-photo-move opium-photo-previous"
+                        ng-if="photo.previous"
+                >
+                    <a href="#/{{photo.parent.slug}}/{{ photo.previous.slug }}">
+                        <span>
+                            <i class="ion-chevron-left"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="opium-photo-move opium-photo-next"
+                    ng-if="photo.next"
+                >
+                    <a href="#/{{photo.parent.slug}}/{{ photo.next.slug }}">
+                        <i class="ion-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div class="opium-photo-move opium-photo-next"
-            ng-if="photo.next"
-        >
-            <a href="#/{{photo.parent.slug}}/{{ photo.next.slug }}">
-                <i class="ion-chevron-right"></i>
-            </a>
+        <div class="col-md-4">
+            <leaflet markers="markers" center="mapCenter" ng-if="mapCenter"></leaflet>
+
+            <h2>Exif</h2>
+            <table class="table">
+                <tr>
+                    <th>Camera
+                    <td>{{ photo.exif.Make }} {{ photo.exif.Model }}
+                </tr>
+                <tr>
+                    <th>Date
+                    <td>{{ photo.exif.DateTime }}
+                </tr>
+                <tr>
+                    <th>Size
+                    <td>{{ photo.exif.ExifImageWidth }}x{{ photo.exif.ExifImageLength }}
+                </tr>
+            </table>
         </div>
     </div>
-
-    <leaflet markers="markers" center="mapCenter" ng-if="mapCenter"></leaflet>
 </div>
