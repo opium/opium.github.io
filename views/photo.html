@@ -45,21 +45,23 @@
         <div class="col-md-4">
             <leaflet markers="markers" center="mapCenter" ng-if="mapCenter"></leaflet>
 
-            <h2>Exif</h2>
-            <table class="table">
-                <tr>
-                    <th>Camera
-                    <td>{{ photo.exif.Make }} {{ photo.exif.Model }}
-                </tr>
-                <tr>
-                    <th>Date
-                    <td>{{ photo.exif.DateTime }}
-                </tr>
-                <tr>
-                    <th>Size
-                    <td>{{ photo.exif.ExifImageWidth }}x{{ photo.exif.ExifImageLength }}
-                </tr>
-            </table>
+            <div ng-if="hasExif()">
+                <h2>Exif</h2>
+                <table class="table">
+                    <tr>
+                        <th>Camera
+                        <td>{{ photo.exif.Make }} {{ photo.exif.Model }}
+                    </tr>
+                    <tr>
+                        <th>Date
+                        <td>{{ photo.exif.DateTime }}
+                    </tr>
+                    <tr>
+                        <th>Size
+                        <td>{{ photo.exif.ExifImageWidth }}x{{ photo.exif.ExifImageLength }}
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

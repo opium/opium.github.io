@@ -75,6 +75,11 @@ opiumControllers.controller(
                     };
                 }
             });
+
+
+            $scope.hasExif = function() {
+                return !Array.isArray($scope.photo.exif) || $scope.photo.exif.length > 0;
+            }
         }
     ]
 );
