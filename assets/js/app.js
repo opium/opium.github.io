@@ -8,6 +8,8 @@ var opiumApp = angular.module('opiumApp', [
 ]);
 
 function routeProvider($routeProvider) {
+    // $locationProvider.html5Mode(true);
+
     $routeProvider
     .when('/:path\/:photo', {
         templateUrl: 'views/photo.html',

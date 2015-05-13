@@ -5,14 +5,82 @@ var opiumControllers = angular.module('opiumControllers', []);
 opiumControllers.controller(
     'AlbumListCtrl',
     [
-        '$scope', '$routeParams', 'Album', 'RootAlbum',
-        function AlbumListCtrl($scope, $routeParams, Album, RootAlbum) {
+        '$scope', '$routeParams', 'Album', 'RootAlbum', 'leafletBoundsHelpers', 'leafletEvents', '$location', '$anchorScroll',
+        function AlbumListCtrl($scope, $routeParams, Album, RootAlbum, leafletBoundsHelpers, leafletEvents, $location, $anchorScroll) {
             var path = $routeParams.path;
             if (path) {
                 $scope.folder = Album.get({id: path});
             } else {
                 $scope.folder = RootAlbum.get();
             }
+
+
+            // map
+            $scope.markers = new Array();
+            $scope.events = {
+                markers: {
+                    enable: leafletEvents.getAvailableMarkerEvents()
+                }
+            };
+
+            $scope.folder.$promise.then(function(data) {
+                var bounds = [];
+                for(i in data.children) {
+                    var photo = data.children[i];
+                    if (photo && photo.position) {
+                        $scope.markers.push({
+                            lat: photo.position.lat,
+                            lng: photo.position.lng,
+                            message: photo.name,
+                            slug: photo.slug
+                        });
+                        bounds.push([
+                            photo.position.lat,
+                            photo.position.lng
+                        ]);
+                    }
+                }
+
+                $scope.maxbounds = $scope.getBoundsFromMarkers($scope.markers);
+
+                $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+                    //$location.hash(args.model.slug);
+                    //$anchorScroll(angular.element(document.getElementById(args.model.slug)));
+                });
+            });
+
+            $scope.getBoundsFromMarkers = function(markers) {
+                var neLat;
+                var neLng;
+                var swLat;
+                var swLng;
+                var markers;
+
+                for (i in markers) {
+                    marker = markers[i];
+
+                    // latitude
+                    if (neLat === undefined || neLat < marker.lat) {
+                        neLat = marker.lat;
+                    }
+                    if (swLat === undefined || swLat > marker.lat) {
+                        swLat = marker.lat;
+                    }
+
+                    // longitude
+                    if (neLng === undefined || neLng < marker.lng) {
+                        neLng = marker.lng;
+                    }
+                    if (swLng === undefined || swLng > marker.lng) {
+                        swLng = marker.lng;
+                    }
+                }
+
+                return leafletBoundsHelpers.createBoundsFromArray([
+                    [neLat, neLng],
+                    [swLat, swLng]
+                ]);
+            };
         }
     ]
 );
