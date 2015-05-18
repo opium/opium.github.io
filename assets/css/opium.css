@@ -1,3 +1,7 @@
+img {
+    image-orientation: from-image;
+}
+
 .flex-container {
     display: flex;
     flex-wrap: wrap;

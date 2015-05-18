@@ -17,6 +17,7 @@ opiumControllers.controller(
 
             // map
             $scope.markers = new Array();
+            $scope.maxbounds = null;
             $scope.events = {
                 markers: {
                     enable: leafletEvents.getAvailableMarkerEvents()
@@ -59,6 +60,10 @@ opiumControllers.controller(
             };
 
             $scope.getBoundsFromMarkers = function(markers) {
+                if (!markers || markers.length == 0) {
+                    return null;
+                }
+
                 var neLat;
                 var neLng;
                 var swLat;

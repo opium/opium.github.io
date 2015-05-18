@@ -1,18 +1,4 @@
-//opium = new Amygdala({
-//  'config': {
-//    'apiUrl': 'http://opium.sitioweb.fr/app_dev.php/v1/json',
-//    'idAttribute': 'url',
-//    'headers': {
-//      //'X-CSRFToken': getCookie('csrftoken')
-//    },
-//    'localStorage': true
-//  },
-//  'schema': {
-//    'list': {
-//      'url': '/'
-//    }
-//  }
-//});
+const APP_FILE = '/app.php';
 
 //opium.get('list').done(function (data) { console.log(data.files) });
 //
@@ -24,7 +10,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/directories', {}, {});
+            return $resource(APP_FILE + '/v1/directories', {}, {});
         }
     ]
 );
@@ -34,7 +20,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/directories/:id', {id: '@id'},
+            return $resource(APP_FILE + '/v1/directories/:id', {id: '@id'},
                 {
                     update: { method: 'PUT' }
                 }
@@ -48,7 +34,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource('/app_dev.php/v1/files/:id', {id: '@id'}, {});
+            return $resource(APP_FILE + '/v1/files/:id', {id: '@id'}, {});
         }
     ]
 );
