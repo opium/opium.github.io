@@ -61,7 +61,7 @@ RewriteRule (.*) index.html [L]
 #    </IfModule>
 #</IfModule>
 
-AuthName "Mot de passe"
-AuthType Basic
-AuthUserFile "/home/j_deniau/code/opium/web/.htpasswd"
-Require valid-user
+# AuthName "Mot de passe"
+# AuthType Basic
+# AuthUserFile "/home/j_deniau/code/opium/web/.htpasswd"
+# Require valid-user
