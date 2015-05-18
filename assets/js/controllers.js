@@ -22,6 +22,9 @@ opiumControllers.controller(
                     enable: leafletEvents.getAvailableMarkerEvents()
                 }
             };
+            $scope.mapDefault = {
+                scrollWheelZoom: false
+            };
 
             $scope.folder.$promise.then(function(data) {
                 var bounds = [];
@@ -44,10 +47,16 @@ opiumControllers.controller(
                 $scope.maxbounds = $scope.getBoundsFromMarkers($scope.markers);
 
                 $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-                    //$location.hash(args.model.slug);
-                    //$anchorScroll(angular.element(document.getElementById(args.model.slug)));
+                    $scope.selected = args.model.slug;
+                    $scope.scrollTo(args.model.slug);
                 });
             });
+
+            $scope.scrollTo = function(slug) {
+                $location.hash(slug);
+                $anchorScroll();
+                return false;
+            };
 
             $scope.getBoundsFromMarkers = function(markers) {
                 var neLat;

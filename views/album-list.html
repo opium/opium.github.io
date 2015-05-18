@@ -4,7 +4,7 @@
     </div>
 
     <h1>
-        <a href="#/{{ folder.parent.slug }}" ng-if="folder.parent" class="small">
+        <a href="/{{ folder.parent.slug }}" ng-if="folder.parent" class="small">
             <i class="ion-chevron-left"></i>
             {{ folder.parent.name }}
         </a>
@@ -14,17 +14,17 @@
 
     <div class="flex-container">
         <div ng-repeat="album in folder.children">
-            <article class="opium-thumbnail" id="{{ album.slug }}">
+            <article class="opium-thumbnail" id="{{ album.slug }}" ng-class="{'selected': album.slug == selected}">
                 <a ng-if="album.type == 'file'"
-                    href="#/{{folder.slug}}/{{ album.slug }}"
+                    href="/{{folder.slug}}/{{ album.slug }}"
                     title="{{ album.name }}"
-                    data-set-main-url="#{{ folder.path }}"
-                    data-set-main-params="#{{ album.pathname }}"
+                    data-set-main-url="{{ folder.path }}"
+                    data-set-main-params="{{ album.pathname }}"
                 >
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
                 </a>
 
-                <a href="#/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
+                <a href="/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
                     <i class="ion-folder" ng-if="!album._embedded.directory_thumbnail"></i>
                     <img
                         ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}"
@@ -44,6 +44,6 @@
         Total number of items: {{ folder.children.length }}
     </p>
 
-    <leaflet markers="markers" maxbounds="maxbounds" ng-if="markers[0]" height="600px"></leaflet>
+    <leaflet default="mapDefault" markers="markers" maxbounds="maxbounds" ng-if="markers[0]" height="600px"></leaflet>
 </div>
 
