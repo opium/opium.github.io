@@ -1,4 +1,4 @@
-const APP_FILE = '/app.php';
+const API_URL = 'http://api.opium.sitioweb.fr/app.php';
 
 //opium.get('list').done(function (data) { console.log(data.files) });
 //
@@ -10,7 +10,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource(APP_FILE + '/v1/directories', {}, {});
+            return $resource(API_URL + '/v1/directories', {}, {});
         }
     ]
 );
@@ -20,7 +20,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource(APP_FILE + '/v1/directories/:id', {id: '@id'},
+            return $resource(API_URL + '/v1/directories/:id', {id: '@id'},
                 {
                     update: { method: 'PUT' }
                 }
@@ -34,7 +34,7 @@ opiumRestClient.factory(
     [
         '$resource',
         function($resource) {
-            return $resource(APP_FILE + '/v1/files/:id', {id: '@id'}, {});
+            return $resource(API_URL + '/v1/files/:id', {id: '@id'}, {});
         }
     ]
 );
