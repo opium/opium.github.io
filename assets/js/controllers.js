@@ -5,14 +5,10 @@ var opiumControllers = angular.module('opiumControllers', []);
 opiumControllers.controller(
     'AlbumListCtrl',
     [
-        '$scope', '$routeParams', 'Album', 'RootAlbum', 'leafletBoundsHelpers', 'leafletEvents', '$location', '$anchorScroll',
-        function AlbumListCtrl($scope, $routeParams, Album, RootAlbum, leafletBoundsHelpers, leafletEvents, $location, $anchorScroll) {
+        '$scope', '$routeParams', 'Album', 'leafletBoundsHelpers', 'leafletEvents', '$location', '$anchorScroll',
+        function AlbumListCtrl($scope, $routeParams, Album, leafletBoundsHelpers, leafletEvents, $location, $anchorScroll) {
             var path = $routeParams.path;
-            if (path) {
-                $scope.folder = Album.get({id: path});
-            } else {
-                $scope.folder = RootAlbum.get();
-            }
+            var getter = Album.one(path).get();
 
 
             // map
@@ -27,7 +23,9 @@ opiumControllers.controller(
                 scrollWheelZoom: false
             };
 
-            $scope.folder.$promise.then(function(data) {
+            getter.then(function(data) {
+                $scope.folder = data;
+
                 var bounds = [];
                 for(i in data.children) {
                     var photo = data.children[i];
@@ -105,13 +103,18 @@ opiumControllers.controller(
         '$scope', '$routeParams', 'Photo', 'Album', 'hotkeys',
         function PhotoCtrl($scope, $routeParams, Photo, Album, hotkeys) {
             var id = $routeParams.photo;
+            var getter = Photo.one(id).get();
 
-            $scope.photo = Photo.get({ id: id });
+            $scope.photo = null;
 
             $scope.setCover = function() {
-                var parent = $scope.photo.parent;
-                parent._embedded.directory_thumbnail = { id: $scope.photo.id };
-                Album.update(parent);
+                var parent = Album.one($scope.photo.parent.slug)
+                .get()
+                .then(function (parent) {
+                        parent._embedded.directory_thumbnail = { id: $scope.photo.id };
+                        parent.save();
+                    }
+                )
             };
 
             $scope.previous = function() {
@@ -140,7 +143,8 @@ opiumControllers.controller(
             });
 
 
-            $scope.photo.$promise.then(function(data) {
+            getter.then(function(data) {
+                $scope.photo = data;
                 if ($scope.photo.position) {
                     $scope.mapCenter = {
                         lat: $scope.photo.position.lat,
@@ -160,7 +164,7 @@ opiumControllers.controller(
 
 
             $scope.hasExif = function() {
-                return !Array.isArray($scope.photo.exif) || $scope.photo.exif.length > 0;
+                return $scope.photo && (!Array.isArray($scope.photo.exif) || $scope.photo.exif.length > 0);
             }
         }
     ]

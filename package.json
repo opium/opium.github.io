@@ -1,0 +1,22 @@
+{
+    "name": "opium-web",
+    "version": "0.1.0",
+    "description": "Opium Web client",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/opium/opium-web"
+    },
+    "author": "Julien Deniau",
+    "license": "GPL-v3",
+    "bugs": {
+        "url": "https://github.com/opium/opium-web/issues"
+    },
+    "homepage": "https://github.com/opium/opium-web",
+    "jscsConfig": {
+        "esnext": true,
+        "preset": "airbnb"
+    }
+}

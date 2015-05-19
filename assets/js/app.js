@@ -4,7 +4,8 @@ var opiumApp = angular.module('opiumApp', [
     'opiumRestClient',
     'ngTouch',
     'cfp.hotkeys',
-    'leaflet-directive'
+    'leaflet-directive',
+    'restangular'
 ]);
 
 function routeProvider($routeProvider, $locationProvider) {
@@ -31,11 +32,12 @@ function routeProvider($routeProvider, $locationProvider) {
     //})
 }
 
-//function resourceProvider($resourceProvider) {
-    //$resourceProvider.defaults.stripTrailingSlashes = false;
-    //$resourceProvider.defaults.encodeSlashes = false;
-//}
-
 opiumApp.config(['$routeProvider', '$locationProvider', routeProvider]);
-//opiumApp.config(['$resourceProvider', resourceProvider]);
+
+opiumApp.config(['RestangularProvider', function(RestangularProvider) {
+    RestangularProvider.setBaseUrl('http://api.opium.sitioweb.fr/app_dev.php/v1');
+    RestangularProvider.setDefaultHeaders({
+        Authorization: 'Basic ' + btoa('julien:deniau')
+    });
+}]);
 
