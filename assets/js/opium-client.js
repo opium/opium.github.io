@@ -10,8 +10,9 @@ opiumRestClient.factory(
     [
         'Restangular',
         function(Restangular) {
-            return Restangular.service('directories');
+          return Restangular.service('directories');
         }
+
     ]
 );
 
@@ -20,7 +21,8 @@ opiumRestClient.factory(
     [
         'Restangular',
         function(Restangular) {
-            return Restangular.service('files');
+          return Restangular.service('files');
         }
+
     ]
 );

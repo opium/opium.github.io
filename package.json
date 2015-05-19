@@ -17,6 +17,7 @@
     "homepage": "https://github.com/opium/opium-web",
     "jscsConfig": {
         "esnext": true,
-        "preset": "airbnb"
+        "preset": "airbnb",
+        "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties"
     }
 }
