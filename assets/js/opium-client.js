@@ -5,6 +5,23 @@ const API_URL = 'http://api.opium.sitioweb.fr/app.php';
 
 var opiumRestClient = angular.module('opiumRestClient', ['restangular']);
 
+// config and redirect on login on error
+opiumRestClient.run(['Restangular', '$location', 'localStorageService', function(Restangular, $location, localStorageService) {
+  Restangular.setBaseUrl('http://api.opium.sitioweb.fr/app_dev.php/v1');
+
+  var auth = localStorageService.get('Authorization');
+
+  Restangular.setDefaultHeaders({
+    Authorization: auth
+  });
+
+  Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
+    if (response.status === 401) {
+      $location.path('/login');
+    }
+  });
+}]);
+
 opiumRestClient.factory(
     'Album',
     [

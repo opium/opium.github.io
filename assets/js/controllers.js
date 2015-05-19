@@ -1,6 +1,26 @@
 var opiumControllers = angular.module('opiumControllers', []);
 
 opiumControllers.controller(
+    'LoginCtrl',
+    [
+        '$scope', 'localStorageService', '$location', 'Restangular',
+        function LoginCtrl($scope, localStorageService, $location, Restangular) {
+          $scope.save = function() {
+            var auth = 'Basic ' + btoa($scope.user.login + ':' + $scope.user.password);
+
+            Restangular.setDefaultHeaders({
+              Authorization: auth
+            });
+            localStorageService.set('Authorization', auth);
+
+            $location.path('/');
+          }
+        }
+
+    ]
+);
+
+opiumControllers.controller(
     'AlbumListCtrl',
     [
         '$scope', '$routeParams', 'Album', 'leafletBoundsHelpers', 'leafletEvents', '$location', '$anchorScroll',
