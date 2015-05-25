@@ -7,7 +7,7 @@ var opiumRestClient = angular.module('opiumRestClient', ['restangular']);
 
 // config and redirect on login on error
 opiumRestClient.run(['Restangular', '$location', 'localStorageService', function(Restangular, $location, localStorageService) {
-  Restangular.setBaseUrl('http://api.opium.sitioweb.fr/app_dev.php/v1');
+  Restangular.setBaseUrl(API_URL + '/v1');
 
   var auth = localStorageService.get('Authorization');
 

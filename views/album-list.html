@@ -16,7 +16,7 @@
         <div ng-repeat="album in folder.children">
             <article class="opium-thumbnail" id="{{ album.slug }}" ng-class="{'selected': album.slug == selected}">
                 <a ng-if="album.type == 'file'"
-                    href="/{{folder.slug}}/{{ album.slug }}"
+                    ng-href="{{ folder.slug ? '/' + folder.slug : '/root' }}/{{ album.slug }}"
                     title="{{ album.name }}"
                     data-set-main-url="{{ folder.path }}"
                     data-set-main-params="{{ album.pathname }}"
@@ -24,7 +24,7 @@
                     <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
                 </a>
 
-                <a href="/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
+                <a ng-href="/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
                     <i class="ion-folder" ng-if="!album._embedded.directory_thumbnail"></i>
                     <img
                         ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}"
