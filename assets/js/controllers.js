@@ -123,7 +123,11 @@ opiumControllers.controller(
         '$scope', '$routeParams', 'Photo', 'Album', 'hotkeys',
         function PhotoCtrl($scope, $routeParams, Photo, Album, hotkeys) {
           var id = $routeParams.photo;
-          var getter = Photo.one(id).get();
+          Photo.one(id).get()
+              .then(function(data) {
+                  $scope.photo = data;
+                  $scope.centerMap();
+              });
 
           $scope.photo = null;
 
@@ -137,6 +141,14 @@ opiumControllers.controller(
 
             )
           };
+
+          $scope.savePosition = function() {
+              $scope.photo.save()
+                  .then(function(data) {
+                      $scope.photo = data;
+                      $scope.centerMap();
+                  });
+          }
 
           $scope.previous = function() {
             if ($scope.photo.previous) {
@@ -163,8 +175,7 @@ opiumControllers.controller(
             }
           });
 
-          getter.then(function(data) {
-            $scope.photo = data;
+          $scope.centerMap = function() {
             if ($scope.photo.position) {
               $scope.mapCenter = {
                 lat: $scope.photo.position.lat,
@@ -180,7 +191,7 @@ opiumControllers.controller(
                 }
               };
             }
-          });
+          }
 
           $scope.hasExif = function() {
             return $scope.photo && (!Array.isArray($scope.photo.exif) || $scope.photo.exif.length > 0);

@@ -45,6 +45,10 @@
         <div class="col-md-4">
             <leaflet markers="markers" center="mapCenter" ng-if="mapCenter"></leaflet>
 
+            <input ng-model="photo.position.lat" />
+            <input ng-model="photo.position.lng" />
+            <button ng-click="savePosition()">setpos</button>
+
             <div ng-if="hasExif()">
                 <h2>Exif</h2>
                 <table class="table">
