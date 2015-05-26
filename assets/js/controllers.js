@@ -147,11 +147,15 @@ opiumControllers.controller(
           };
 
           $scope.savePosition = function() {
+              $scope.overridingPosition = true;
+              $scope.overridePosition = false;
               $scope.photo.save()
                   .then(function(data) {
                       $scope.photo = data;
                       $scope.centerMap();
+                      $scope.overridingPosition = false;
                   });
+
           }
 
           $scope.previous = function() {

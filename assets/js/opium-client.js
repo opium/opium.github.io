@@ -1,8 +1,3 @@
-const API_URL = 'http://api.opium.sitioweb.fr/app.php';
-
-//opium.get('list').done(function (data) { console.log(data.files) });
-//
-
 var opiumRestClient = angular.module('opiumRestClient', ['restangular']);
 
 // config and redirect on login on error

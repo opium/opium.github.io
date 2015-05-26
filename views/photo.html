@@ -8,12 +8,12 @@
         {{ photo.name }}
     </h1>
 
-    <a href="" ng-click="setCover()" ng-if="!uploading">
+    <a href="" ng-click="setCover()" ng-hide="uploading">
         <i class="ion-image"></i>
         Set as directory cover
     </a>
 
-    <div class="loader-inner ball-pulse" ng-if="uploading">
+    <div class="loader-inner ball-pulse" ng-show="uploading">
         <div></div>
         <div></div>
         <div></div>
@@ -51,9 +51,22 @@
         <div class="col-md-4">
             <leaflet markers="markers" center="mapCenter" ng-if="mapCenter"></leaflet>
 
-            <input ng-model="photo.position.lat" />
-            <input ng-model="photo.position.lng" />
-            <button ng-click="savePosition()">setpos</button>
+            <div ng-show="overridePosition">
+                <input ng-model="photo.position.lat" />
+                <input ng-model="photo.position.lng" />
+                <button ng-click="savePosition()">setpos</button>
+            </div>
+
+            <a href="javascript:;" ng-click="overridePosition = true" ng-show="!overridePosition && !overridingPosition">
+                Override position
+            </a>
+
+            <div class="loader-inner ball-pulse" ng-show="overridingPosition">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
 
             <div ng-if="hasExif()">
                 <h2>Exif</h2>
