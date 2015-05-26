@@ -8,10 +8,16 @@
         {{ photo.name }}
     </h1>
 
-    <a href="" ng-click="setCover()">
+    <a href="" ng-click="setCover()" ng-if="!uploading">
         <i class="ion-image"></i>
         Set as directory cover
     </a>
+
+    <div class="loader-inner ball-pulse" ng-if="uploading">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 
     <div class="row">
         <div class="col-md-8">

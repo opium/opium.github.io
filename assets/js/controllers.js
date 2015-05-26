@@ -132,11 +132,15 @@ opiumControllers.controller(
           $scope.photo = null;
 
           $scope.setCover = function() {
+            $scope.uploading = true;
             var parent = Album.one($scope.photo.parent.slug)
             .get()
                 .then(function(parent) {
                   parent._embedded.directory_thumbnail = { id: $scope.photo.id };
-                  parent.save();
+                  parent.save()
+                  .then(function() {
+                    $scope.uploading = false;
+                  });
                 }
 
             )

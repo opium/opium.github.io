@@ -46,7 +46,6 @@ img {
     width: 200px;
     height: 200px;
     position: relative;
-    //border: 1px solid #424242;
 }
 
 .opium-thumbnail > a {
@@ -81,4 +80,8 @@ img {
 
 .selected {
     box-shadow: 0 0 6px #000;
+}
+
+.ball-pulse > div {
+    background: #428bca;
 }
