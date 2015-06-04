@@ -1,6 +1,14 @@
-<div class="container-fluid">
+<div class="container-fluid header">
     <div class="container" ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']">
         <img ng-src="{{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170"  class="img-responsive" />
+
+        <leaflet
+            defaults="mapDefaults"
+            markers="markers"
+            maxbounds="maxbounds"
+            ng-if="markers[0]"
+            class="center map"
+        ></leaflet>
     </div>
 
     <h1>
@@ -43,7 +51,5 @@
     <p class="text-right">
         Total number of items: {{ folder.children.length }}
     </p>
-
-    <leaflet default="mapDefault" markers="markers" maxbounds="maxbounds" ng-if="markers[0]" height="600px"></leaflet>
 </div>
 

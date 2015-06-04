@@ -9,6 +9,10 @@ img {
     align-items: stretch;
 }
 
+.center {
+    margin: 0 auto;
+}
+
 .opium-photo-move-container {
     position: relative;
 }
@@ -69,11 +73,6 @@ img {
     text-align: center;
 }
 
-.leaflet-container {
-    width: 100%;
-    height: 300px;
-}
-
 .mb1 {
     margin-bottom: 1em;
 }
@@ -84,4 +83,10 @@ img {
 
 .ball-pulse > div {
     background: #428bca;
+}
+
+.header .map {
+    width: 110px;
+    height: 110px;
+    margin-top: -55px;
 }

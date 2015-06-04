@@ -36,8 +36,14 @@ opiumControllers.controller(
               enable: leafletEvents.getAvailableMarkerEvents()
             }
           };
-          $scope.mapDefault = {
-            scrollWheelZoom: false
+          $scope.mapDefaults = {
+            attributionControl: false,
+            dragging: false,
+            boxZoom: false,
+            scrollWheelZoom: false,
+            zoomControl: false,
+            doubleClickZoom: false,
+            touchZoom: false
           };
 
           getter.then(function(data) {

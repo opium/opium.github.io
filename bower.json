@@ -24,6 +24,7 @@
     "angular-leaflet-directive": "~0.7.15",
     "restangular": "~1.5.1",
     "lodash": "~3.8.0",
-    "angular-local-storage": "~0.2.1"
+    "angular-local-storage": "~0.2.1",
+    "loaders.css": "~0.1.1"
   }
 }
