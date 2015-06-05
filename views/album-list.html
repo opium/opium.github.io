@@ -2,13 +2,17 @@
     <div class="container" ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']">
         <img ng-src="{{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170"  class="img-responsive" />
 
-        <leaflet
-            defaults="mapDefaults"
-            markers="markers"
-            maxbounds="maxbounds"
-            ng-if="markers[0]"
-            class="center map"
-        ></leaflet>
+        <div class="txtcenter">
+            <a ng-href="/{{ folder.slug }}/_map" class="map-container">
+                <leaflet
+                    defaults="mapDefaults"
+                    markers="markers"
+                    maxbounds="maxbounds"
+                    ng-if="markers[0]"
+                    class="center map"
+                ></leaflet>
+            </a>
+        </div>
     </div>
 
     <h1>

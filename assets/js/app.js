@@ -17,6 +17,11 @@ function routeProvider($routeProvider, $locationProvider) {
       controller: 'LoginCtrl',
       reloadOnSearch: false
     })
+    .when('/:path\/_map', {
+      templateUrl: 'views/album-map.html',
+      controller: 'AlbumMapCtrl',
+      reloadOnSearch: false
+    })
     .when('/:path\/:photo', {
       templateUrl: 'views/photo.html',
       controller: 'PhotoCtrl',

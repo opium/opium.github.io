@@ -20,11 +20,83 @@ opiumControllers.controller(
     ]
 );
 
+function AlbumGeoPoints(leafletBoundsHelpers) {
+  this.getMapDefaultNoInteractions = function() {
+    return {
+      attributionControl: false,
+      dragging: false,
+      boxZoom: false,
+      scrollWheelZoom: false,
+      zoomControl: false,
+      doubleClickZoom: false,
+      touchZoom: false
+    };
+  };
+
+  this.getBoundsFromMarkers = function(markers) {
+    if (!markers || markers.length == 0) {
+      return null;
+    }
+
+    var neLat;
+    var neLng;
+    var swLat;
+    var swLng;
+    var markers;
+
+    for (i in markers) {
+      marker = markers[i];
+
+      // latitude
+      if (neLat === undefined || neLat < marker.lat) {
+        neLat = marker.lat;
+      }
+
+      if (swLat === undefined || swLat > marker.lat) {
+        swLat = marker.lat;
+      }
+
+      // longitude
+      if (neLng === undefined || neLng < marker.lng) {
+        neLng = marker.lng;
+      }
+
+      if (swLng === undefined || swLng > marker.lng) {
+        swLng = marker.lng;
+      }
+    }
+
+    return leafletBoundsHelpers.createBoundsFromArray([
+        [neLat, neLng],
+        [swLat, swLng]
+    ]);
+  };
+
+  this.getMarkersFromPhotos = function(children) {
+    var markers = [];
+    for (i in children) {
+      var photo = children[i];
+      if (photo && photo.position) {
+        markers.push({
+          lat: photo.position.lat,
+          lng: photo.position.lng,
+          message: photo.name,
+          slug: photo.slug
+        });
+      }
+    }
+
+    return markers;
+  }
+};
+
+opiumApp.service('albumGeoPoints', ['leafletBoundsHelpers', AlbumGeoPoints]);
+
 opiumControllers.controller(
     'AlbumListCtrl',
     [
-        '$scope', '$routeParams', 'Album', 'leafletBoundsHelpers', 'leafletEvents', '$location', '$anchorScroll',
-        function AlbumListCtrl($scope, $routeParams, Album, leafletBoundsHelpers, leafletEvents, $location, $anchorScroll) {
+        '$scope', '$routeParams', 'Album', 'leafletEvents', '$location', '$anchorScroll', 'albumGeoPoints',
+        function AlbumListCtrl($scope, $routeParams, Album, leafletEvents, $location, $anchorScroll, albumGeoPoints) {
           var path = $routeParams.path;
           var getter = Album.one(path).get();
 
@@ -36,37 +108,13 @@ opiumControllers.controller(
               enable: leafletEvents.getAvailableMarkerEvents()
             }
           };
-          $scope.mapDefaults = {
-            attributionControl: false,
-            dragging: false,
-            boxZoom: false,
-            scrollWheelZoom: false,
-            zoomControl: false,
-            doubleClickZoom: false,
-            touchZoom: false
-          };
+          $scope.mapDefaults = albumGeoPoints.getMapDefaultNoInteractions();
 
           getter.then(function(data) {
             $scope.folder = data;
 
-            var bounds = [];
-            for (i in data.children) {
-              var photo = data.children[i];
-              if (photo && photo.position) {
-                $scope.markers.push({
-                  lat: photo.position.lat,
-                  lng: photo.position.lng,
-                  message: photo.name,
-                  slug: photo.slug
-                });
-                bounds.push([
-                    photo.position.lat,
-                    photo.position.lng
-                ]);
-              }
-            }
-
-            $scope.maxbounds = $scope.getBoundsFromMarkers($scope.markers);
+            $scope.markers = albumGeoPoints.getMarkersFromPhotos(data.children);
+            $scope.maxbounds = albumGeoPoints.getBoundsFromMarkers($scope.markers);
 
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
               $scope.selected = args.model.slug;
@@ -79,49 +127,34 @@ opiumControllers.controller(
             $anchorScroll();
             return false;
           };
-
-          $scope.getBoundsFromMarkers = function(markers) {
-            if (!markers || markers.length == 0) {
-              return null;
-            }
-
-            var neLat;
-            var neLng;
-            var swLat;
-            var swLng;
-            var markers;
-
-            for (i in markers) {
-              marker = markers[i];
-
-              // latitude
-              if (neLat === undefined || neLat < marker.lat) {
-                neLat = marker.lat;
-              }
-
-              if (swLat === undefined || swLat > marker.lat) {
-                swLat = marker.lat;
-              }
-
-              // longitude
-              if (neLng === undefined || neLng < marker.lng) {
-                neLng = marker.lng;
-              }
-
-              if (swLng === undefined || swLng > marker.lng) {
-                swLng = marker.lng;
-              }
-            }
-
-            return leafletBoundsHelpers.createBoundsFromArray([
-                [neLat, neLng],
-                [swLat, swLng]
-            ]);
-          };
         }
 
     ]
 );
+
+opiumControllers.controller(
+    'AlbumMapCtrl',
+    [
+        '$scope', '$routeParams', 'Album', 'leafletEvents', 'albumGeoPoints',
+        function AlbumMapCtrl($scope, $routeParams, Album, leafletEvents, albumGeoPoints) {
+          var path = $routeParams.path;
+          var getter = Album.one(path).get();
+
+          getter.then(function(data) {
+            $scope.folder = data;
+
+            $scope.markers = albumGeoPoints.getMarkersFromPhotos(data.children);
+            $scope.maxbounds = albumGeoPoints.getBoundsFromMarkers($scope.markers);
+
+            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+              $scope.selected = args.model.slug;
+              $scope.scrollTo(args.model.slug);
+            });
+          });
+        }
+
+    ]
+)
 
 opiumControllers.controller(
     'PhotoCtrl',
