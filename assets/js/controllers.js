@@ -66,23 +66,36 @@ function AlbumGeoPoints(leafletBoundsHelpers) {
       }
     }
 
+    var latDiff = (neLat - swLat) / 2;
+    neLat = neLat + latDiff;
+    swLat = swLat - latDiff;
+
+    var lonDiff = (neLng - swLng) / 2;
+    neLng = neLng + lonDiff;
+    swLng = swLng - lonDiff;
+
     return leafletBoundsHelpers.createBoundsFromArray([
         [neLat, neLng],
         [swLat, swLng]
     ]);
   };
 
-  this.getMarkersFromPhotos = function(children) {
+  this.getMarkersFromPhotos = function(children, showMarker) {
     var markers = [];
     for (i in children) {
       var photo = children[i];
       if (photo && photo.position) {
-        markers.push({
+        var marker = {
           lat: photo.position.lat,
-          lng: photo.position.lng,
-          message: photo.name,
-          slug: photo.slug
-        });
+          lng: photo.position.lng
+        };
+
+        if (showMarker) {
+          marker.message = photo.name;
+          marker.slug = photo.slug;
+        }
+
+        markers.push(marker);
       }
     }
 
@@ -113,7 +126,7 @@ opiumControllers.controller(
           getter.then(function(data) {
             $scope.folder = data;
 
-            $scope.markers = albumGeoPoints.getMarkersFromPhotos(data.children);
+            $scope.markers = albumGeoPoints.getMarkersFromPhotos(data.children, false);
             $scope.maxbounds = albumGeoPoints.getBoundsFromMarkers($scope.markers);
 
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
@@ -143,7 +156,7 @@ opiumControllers.controller(
           getter.then(function(data) {
             $scope.folder = data;
 
-            $scope.markers = albumGeoPoints.getMarkersFromPhotos(data.children);
+            $scope.markers = albumGeoPoints.getMarkersFromPhotos(data.children, true);
             $scope.maxbounds = albumGeoPoints.getBoundsFromMarkers($scope.markers);
 
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
@@ -164,8 +177,8 @@ opiumControllers.controller(
           var id = $routeParams.photo;
           Photo.one(id).get()
               .then(function(data) {
-                  $scope.photo = data;
-                  $scope.centerMap();
+                $scope.photo = data;
+                $scope.centerMap();
               });
 
           $scope.photo = null;

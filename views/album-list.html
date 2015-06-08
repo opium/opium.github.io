@@ -1,9 +1,20 @@
-<div class="container-fluid header">
-    <div class="container" ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']">
-        <img ng-src="{{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }}" width="1170"  class="img-responsive" />
+<div class="container-fluid">
+    <div class="header"
+         ng-if="folder._embedded.directory_thumbnail.thumbnails['banner-1170x400']"
+         style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .8)), url({{ folder._embedded.directory_thumbnail.thumbnails['banner-1170x400'] }})"
+    >
 
-        <div class="txtcenter">
-            <a ng-href="/{{ folder.slug }}/_map" class="map-container">
+        <a href="/{{ folder.parent.slug }}" ng-if="folder.parent" class="back">
+            <i class="ion-chevron-left"></i>
+            {{ folder.parent.name ? folder.parent.name : "Back to albums" }}
+        </a>
+
+        <h1>
+            {{ folder.name }}
+        </h1>
+
+        <div class="map-container">
+            <a ng-href="/{{ folder.slug }}/_map">
                 <leaflet
                     defaults="mapDefaults"
                     markers="markers"
@@ -14,15 +25,6 @@
             </a>
         </div>
     </div>
-
-    <h1>
-        <a href="/{{ folder.parent.slug }}" ng-if="folder.parent" class="small">
-            <i class="ion-chevron-left"></i>
-            {{ folder.parent.name }}
-        </a>
-
-        {{ folder.name }}
-    </h1>
 
     <div class="flex-container">
         <div ng-repeat="album in folder.children">
