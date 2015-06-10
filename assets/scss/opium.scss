@@ -58,10 +58,9 @@ img {
     width: 200px;
     height: 200px;
     position: relative;
-}
-
-.opium-thumbnail > a {
-    display: block;
+    > a {
+        display: block;
+    }
 }
 
 .opium-thumbnail .caption {
@@ -99,40 +98,38 @@ img {
     background-position: center center;
     background-size: cover;
     margin-bottom: 80px;
-}
 
-.header h1 {
-    color: #fff;
-    text-align: center;
-    font-size: 54px;
-    margin-top: 70px;
-}
+    h1 {
+        color: #fff;
+        text-align: center;
+        font-size: 54px;
+        margin-top: 70px;
+    }
 
-.header .map {
-    width: 110px;
-    height: 110px;
-}
+    .map {
+        width: 110px;
+        height: 110px;
+    }
 
-.header .map-container {
-    position: absolute;
-    bottom: -55px;
-    left: 50%;
-    margin-left: -55px;
-}
+    .map-container {
+        position: absolute;
+        bottom: -55px;
+        left: 50%;
+        margin-left: -55px;
 
-.header .map-container .map {
-    z-index: 1;
-    border-radius: 50%;
-}
+        .map {
+            z-index: 1;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
 
-.header .map-container .map:hover {
-    cursor: pointer;
-}
 
-.header img.banner {
-    position: absolute;
-    top: 0;
-    left: 0;
+    img.banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
 
 .back {
@@ -142,3 +139,4 @@ img {
     text-shadow: 1px 1px 1px #000;
     color: #899eaf;
 }
+

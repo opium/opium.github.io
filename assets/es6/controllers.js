@@ -43,6 +43,8 @@ function AlbumGeoPoints(leafletBoundsHelpers) {
     var swLat;
     var swLng;
     var markers;
+    var marker;
+    var i;
 
     for (i in markers) {
       marker = markers[i];
@@ -82,6 +84,7 @@ function AlbumGeoPoints(leafletBoundsHelpers) {
 
   this.getMarkersFromPhotos = function(children, showMarker) {
     var markers = [];
+    var i;
     for (i in children) {
       var photo = children[i];
       if (photo && photo.position) {
@@ -199,13 +202,13 @@ opiumControllers.controller(
           };
 
           $scope.savePosition = function() {
-              $scope.overridingPosition = true;
-              $scope.overridePosition = false;
-              $scope.photo.save()
+            $scope.overridingPosition = true;
+            $scope.overridePosition = false;
+            $scope.photo.save()
                   .then(function(data) {
-                      $scope.photo = data;
-                      $scope.centerMap();
-                      $scope.overridingPosition = false;
+                    $scope.photo = data;
+                    $scope.centerMap();
+                    $scope.overridingPosition = false;
                   });
 
           }
