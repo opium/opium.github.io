@@ -29,7 +29,8 @@ function AlbumGeoPoints(leafletBoundsHelpers) {
       scrollWheelZoom: false,
       zoomControl: false,
       doubleClickZoom: false,
-      touchZoom: false
+      touchZoom: false,
+      tileLayer: 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
     };
   };
 
