@@ -1,40 +1,34 @@
-var opiumRestClient = angular.module('opiumRestClient', ['restangular']);
+const opiumRestClient = angular.module('opiumRestClient', ['restangular']);
 
 // config and redirect on login on error
-opiumRestClient.run(['Restangular', '$location', 'localStorageService', function(Restangular, $location, localStorageService) {
+opiumRestClient.run(function(Restangular, $location, localStorageService) {
   Restangular.setBaseUrl(API_URL + '/v1');
 
-  var auth = localStorageService.get('Authorization');
+  let auth = localStorageService.get('Authorization');
 
   Restangular.setDefaultHeaders({
     Authorization: auth
   });
 
-  Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
+  Restangular.setErrorInterceptor((response, deferred, responseHandler) => {
     if (response.status === 401) {
       $location.path('/login');
     }
   });
-}]);
+});
 
 opiumRestClient.factory(
-    'Album',
-    [
-        'Restangular',
-        function(Restangular) {
-          return Restangular.service('directories');
-        }
+  'Album',
+  function(Restangular) {
+    return Restangular.service('directories');
+  }
 
-    ]
 );
 
 opiumRestClient.factory(
-    'Photo',
-    [
-        'Restangular',
-        function(Restangular) {
-          return Restangular.service('files');
-        }
+  'Photo',
+  function(Restangular) {
+    return Restangular.service('files');
+  }
 
-    ]
 );

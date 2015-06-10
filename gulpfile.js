@@ -4,6 +4,7 @@ var sass               = require('gulp-sass');
 var sourcemaps         = require('gulp-sourcemaps');
 var babel              = require('gulp-babel');
 var historyApiFallback = require('connect-history-api-fallback');
+var ngAnnotate         = require('gulp-ng-annotate');
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
@@ -42,6 +43,7 @@ gulp.task('js', function() {
       .pipe(sourcemaps.init())
           .pipe(babel())
       .pipe(sourcemaps.write())
+      .pipe(ngAnnotate({ single_quotes: true }))
       .pipe(gulp.dest('assets/js'))
       .pipe(browserSync.stream());
 });

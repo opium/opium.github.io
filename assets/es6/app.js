@@ -1,4 +1,4 @@
-var opiumApp = angular.module('opiumApp', [
+const opiumApp = angular.module('opiumApp', [
     'ngRoute',
     'opiumControllers',
     'opiumRestClient',
@@ -43,5 +43,5 @@ function routeProvider($routeProvider, $locationProvider) {
   //})
 }
 
-opiumApp.config(['$routeProvider', '$locationProvider', routeProvider]);
+opiumApp.config(routeProvider);
 
