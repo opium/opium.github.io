@@ -48,4 +48,4 @@ gulp.task('js', function() {
       .pipe(browserSync.stream());
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['js', 'sass', 'serve']);
