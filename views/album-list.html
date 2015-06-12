@@ -26,8 +26,8 @@
         </div>
     </div>
 
-    <div class="flex-container">
-        <div ng-repeat="album in folder.children">
+    <div style="max-width: 1170px">
+        <div ng-repeat="album in folder.children" class="opium-thumbnail-container">
             <article class="opium-thumbnail" id="{{ album.slug }}" ng-class="{'selected': album.slug == selected}">
                 <a ng-if="album.type == 'file'"
                     ng-href="{{ folder.slug ? '/' + folder.slug : '/root' }}/{{ album.slug }}"
@@ -35,14 +35,14 @@
                     data-set-main-url="{{ folder.path }}"
                     data-set-main-params="{{ album.pathname }}"
                 >
-                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
+                    <img ng-src="{{ folder.images_link[album.id] }}" />
                 </a>
 
                 <a ng-href="/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
                     <i class="ion-folder" ng-if="!album._embedded.directory_thumbnail"></i>
                     <img
-                        ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}"
-                        ng-if="album._embedded.directory_thumbnail" width="200" height="200"
+                        ng-src="{{ folder.images_link[album.id] }}"
+                        ng-if="album._embedded.directory_thumbnail"
                     />
                 </a>
 
