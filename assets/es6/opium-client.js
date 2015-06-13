@@ -9,7 +9,7 @@ opiumRestClient.run(function(Restangular, $location, localStorageService) {
   Restangular.setDefaultHeaders({
     Authorization: auth,
     'X-Device-Width': window.innerWidth,
-    'X-Device-Height': window.innerHeight,
+    'X-Device-Height': window.innerHeight
   });
 
   Restangular.setErrorInterceptor((response, deferred, responseHandler) => {

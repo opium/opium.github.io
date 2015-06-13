@@ -94,13 +94,19 @@ img {
 
 .header {
     position: relative;
-    height: 400px;
     background-position: center center;
     background-size: cover;
-    margin-bottom: 80px;
+        margin-bottom: 80px;
+
+    &.cover {
+        height: 400px;
+
+        h1 {
+            color: #fff;
+        }
+    }
 
     h1 {
-        color: #fff;
         text-align: center;
         font-size: 54px;
         margin-top: 70px;
@@ -136,7 +142,10 @@ img {
     display: inline-block;
     margin: 1em;
     font-size: 1.2em;
-    text-shadow: 1px 1px 1px #000;
     color: #899eaf;
+}
+
+.cover .back {
+    text-shadow: 1px 1px 1px #000;
 }
 

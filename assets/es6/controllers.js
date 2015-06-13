@@ -133,6 +133,19 @@ opiumControllers.controller(
       $anchorScroll();
       return false;
     };
+
+    $scope.getHeaderStyle = function() {
+      let cover = $scope.getCover();
+      if (cover) {
+        return {'background-image': `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .8)), url(${cover})`};
+      }
+    }
+
+    $scope.getCover = function() {
+      if ($scope.folder && $scope.folder._embedded.directory_thumbnail) {
+        return $scope.folder._embedded.directory_thumbnail.thumbnails.banner;
+      }
+    }
   }
 
 );
@@ -162,6 +175,7 @@ opiumControllers.controller(
   'PhotoCtrl',
   function PhotoCtrl($scope, $routeParams, Photo, Album, hotkeys) {
     let id = $routeParams.photo;
+
     Photo.one(id).get()
     .then((data) => {
       $scope.photo = data;
@@ -188,6 +202,7 @@ opiumControllers.controller(
     $scope.savePosition = function() {
       $scope.overridingPosition = true;
       $scope.overridePosition = false;
+
       $scope.photo.save()
       .then((data) => {
         $scope.photo = data;
