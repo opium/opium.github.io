@@ -27,6 +27,14 @@
     </div>
 
     <div style="max-width: 1170px">
+        <div ng-repeat="line in folder.image_lines" class="flex-container">
+            <div ng-repeat="item in line">
+                <img
+                    ng-src="{{ item.thumbs }}"
+                />
+            </div>
+        </div>
+
         <div ng-repeat="album in folder.children" class="opium-thumbnail-container">
             <article class="opium-thumbnail" id="{{ album.slug }}" ng-class="{'selected': album.slug == selected}">
                 <a ng-if="album.type == 'file'"

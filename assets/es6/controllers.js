@@ -104,7 +104,7 @@ opiumControllers.controller(
   'AlbumListCtrl',
   function AlbumListCtrl($scope, $routeParams, Album, leafletEvents, $location, $anchorScroll, albumGeoPoints) {
     let path = $routeParams.path;
-    let getter = Album.one(path).get();
+    let getter = Album.one(path).get({gutter: 10});
 
     // map
     $scope.markers = new Array();
