@@ -1,13 +1,15 @@
-var gulp               = require('gulp');
-var browserSync        = require('browser-sync').create();
-var sass               = require('gulp-sass');
-var sourcemaps         = require('gulp-sourcemaps');
-var babel              = require('gulp-babel');
-var historyApiFallback = require('connect-history-api-fallback');
-var ngAnnotate         = require('gulp-ng-annotate');
+import gulp from 'gulp';
+import sass               from 'gulp-sass';
+import sourcemaps         from 'gulp-sourcemaps';
+import babel              from 'gulp-babel';
+import historyApiFallback from 'connect-history-api-fallback';
+import ngAnnotate         from 'gulp-ng-annotate';
+import browserSync        from 'browser-sync';
+
+browserSync.create();
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', ['sass'], () => {
 
   browserSync.init({
     server: {
@@ -29,7 +31,7 @@ gulp.task('serve', ['sass'], function() {
 });
 
 // Compile sass into CSS & auto-inject into browsers
-gulp.task('sass', function() {
+gulp.task('sass', () => {
   return gulp.src('assets/scss/*.scss')
       .pipe(sourcemaps.init())
           .pipe(sass())
@@ -38,7 +40,7 @@ gulp.task('sass', function() {
       .pipe(browserSync.stream());
 });
 
-gulp.task('js', function() {
+gulp.task('js', () => {
   return gulp.src('assets/es6/*.js')
       .pipe(sourcemaps.init())
           .pipe(babel())
