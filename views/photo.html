@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <h1>
+        <a href="/{{ photo.parent.slug }}" ng-if="photo.parent" class="small">
+            <i class="ion-chevron-left"></i>
+            {{ photo.parent.name }}
+        </a>
+
+        {{ photo.name }}
+    </h1>
+
+    <a href="" ng-click="setCover()" ng-hide="uploading">
+        <i class="ion-image"></i>
+        Set as directory cover
+    </a>
+
+    <div class="loader-inner ball-pulse" ng-show="uploading">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div 
+                class="opium-photo-move-container mb1"
+                ng-swipe-right="previous()"
+                ng-swipe-left="next()"
+            >
+                <img ng-src="{{ photo._links.original.href }}" class="img-responsive ion-load-c" />
+
+                <div class="opium-photo-move opium-photo-previous"
+                        ng-if="photo.previous"
+                >
+                    <a href="/{{photo.parent.slug}}/{{ photo.previous.slug }}">
+                        <span>
+                            <i class="ion-chevron-left"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="opium-photo-move opium-photo-next"
+                    ng-if="photo.next"
+                >
+                    <a href="/{{photo.parent.slug}}/{{ photo.next.slug }}">
+                        <i class="ion-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <leaflet markers="markers" center="mapCenter" ng-if="mapCenter" height="200px"></leaflet>
+
+            <div ng-show="overridePosition">
+                <input ng-model="photo.position.lat" />
+                <input ng-model="photo.position.lng" />
+                <button ng-click="savePosition()">setpos</button>
+            </div>
+
+            <a href="javascript:;" ng-click="overridePosition = true" ng-show="!overridePosition && !overridingPosition">
+                Override position
+            </a>
+
+            <div class="loader-inner ball-pulse" ng-show="overridingPosition">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+
+            <div ng-if="hasExif()">
+                <h2>Exif</h2>
+                <table class="table">
+                    <tr>
+                        <th>Camera
+                        <td>{{ photo.exif.Make }} {{ photo.exif.Model }}
+                    </tr>
+                    <tr>
+                        <th>Date
+                        <td>{{ photo.exif.DateTime }}
+                    </tr>
+                    <tr>
+                        <th>Size
+                        <td>{{ photo.exif.ExifImageWidth }}x{{ photo.exif.ExifImageLength }}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
