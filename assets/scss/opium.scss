@@ -53,10 +53,14 @@ img {
     right: 0;
 }
 
+.opium-thumbnail-container {
+    display: inline-block;
+}
+
 .opium-thumbnail {
     margin: 5px;
-    width: 200px;
-    height: 200px;
+    // width: 200px;
+    // height: 200px;
     position: relative;
     > a {
         display: block;
@@ -76,7 +80,6 @@ img {
 
 .no-thumbnail {
     font-size: 160px;
-    line-height: 200px;
     text-align: center;
 }
 

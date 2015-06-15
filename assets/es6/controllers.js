@@ -104,7 +104,7 @@ opiumControllers.controller(
   'AlbumListCtrl',
   function AlbumListCtrl($scope, $routeParams, Album, leafletEvents, $location, $anchorScroll, albumGeoPoints) {
     let path = $routeParams.path;
-    let getter = Album.one(path).get();
+    let getter = Album.one(path).get({gutter: 10});
 
     // map
     $scope.markers = new Array();
@@ -139,13 +139,21 @@ opiumControllers.controller(
       if (cover) {
         return {'background-image': `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .8)), url(${cover})`};
       }
-    }
+    };
 
     $scope.getCover = function() {
       if ($scope.folder && $scope.folder._embedded.directory_thumbnail) {
         return $scope.folder._embedded.directory_thumbnail.thumbnails.banner;
       }
-    }
+    };
+
+    $scope.getAlbumById = function(itemId) {
+      for (let album of $scope.folder.children) {
+        if (album.id == itemId) {
+          return album;
+        }
+      }
+    };
   }
 
 );

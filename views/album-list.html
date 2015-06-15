@@ -1,61 +1,69 @@
-<div class="container-fluid">
-    <div class="header"
-        ng-class="{'cover': folder._embedded.directory_thumbnail.thumbnails.banner, 'header': true }"
-        ng-style="getHeaderStyle()"
-    >
+<div class="header"
+    ng-class="{'cover': folder._embedded.directory_thumbnail.thumbnails.banner, 'header': true }"
+    ng-style="getHeaderStyle()"
+>
 
-        <a href="/{{ folder.parent.slug }}" ng-if="folder.parent" class="back">
-            <i class="ion-chevron-left"></i>
-            {{ folder.parent.name ? folder.parent.name : "Back to albums" }}
+    <a href="/{{ folder.parent.slug }}" ng-if="folder.parent" class="back">
+        <i class="ion-chevron-left"></i>
+        {{ folder.parent.name ? folder.parent.name : "Back to albums" }}
+    </a>
+
+    <h1>
+        {{ folder.name }}
+    </h1>
+
+    <div class="map-container">
+        <a ng-href="/{{ folder.slug }}/_map">
+            <leaflet
+                defaults="mapDefaults"
+                markers="markers"
+                maxbounds="maxbounds"
+                ng-if="markers[0]"
+                class="center map"
+            ></leaflet>
         </a>
-
-        <h1>
-            {{ folder.name }}
-        </h1>
-
-        <div class="map-container">
-            <a ng-href="/{{ folder.slug }}/_map">
-                <leaflet
-                    defaults="mapDefaults"
-                    markers="markers"
-                    maxbounds="maxbounds"
-                    ng-if="markers[0]"
-                    class="center map"
-                ></leaflet>
-            </a>
-        </div>
     </div>
-
-    <div class="flex-container">
-        <div ng-repeat="album in folder.children">
-            <article class="opium-thumbnail" id="{{ album.slug }}" ng-class="{'selected': album.slug == selected}">
-                <a ng-if="album.type == 'file'"
-                    ng-href="{{ folder.slug ? '/' + folder.slug : '/root' }}/{{ album.slug }}"
-                    title="{{ album.name }}"
-                    data-set-main-url="{{ folder.path }}"
-                    data-set-main-params="{{ album.pathname }}"
-                >
-                    <img ng-src="{{ album.thumbnails['square-200x200'] }}" width="200" height="200" />
-                </a>
-
-                <a ng-href="/{{ album.slug }}" ng-if="album.type != 'file'" ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }">
-                    <i class="ion-folder" ng-if="!album._embedded.directory_thumbnail"></i>
-                    <img
-                        ng-src="{{ album._embedded.directory_thumbnail.thumbnails['square-200x200'] }}"
-                        ng-if="album._embedded.directory_thumbnail" width="200" height="200"
-                    />
-                </a>
-
-                <div class="caption">
-                    {{ album.name }}
-                </div>
-
-            </article>
-        </div>
-    </div>
-
-    <p class="text-right">
-        Total number of items: {{ folder.children.length }}
-    </p>
 </div>
 
+<div ng-repeat="line in folder.image_lines" class="flex-container">
+    <article
+        class="opium-thumbnail"
+        ng-repeat="(itemId, item) in line"
+        ng-init="album = getAlbumById(itemId)"
+        id="{{ album.slug }}"
+        ng-class="{'selected': album.slug == selected}"
+        >
+
+
+        <a ng-if="album.type == 'file'"
+            ng-href="{{ folder.slug ? '/' + folder.slug : '/root' }}/{{ album.slug }}"
+            title="{{ album.name }}"
+            data-set-main-url="{{ folder.path }}"
+            data-set-main-params="{{ album.pathname }}"
+        >
+        <img ng-src="{{ item.thumbs }}" ng-style="{'width':item.geometry.width + 'px', 'height': item.geometry.height + 'px' }" />
+        </a>
+
+        <a
+            ng-href="/{{ album.slug }}"
+            ng-if="album.type != 'file'"
+            ng-class="{ 'no-thumbnail': !album._embedded.directory_thumbnail }"
+            ng-style="{'line-height': item.geometry.height + 'px', 'height': item.geometry.height + 'px', 'width': item.geometry.width + 'px'}"
+        >
+            <i class="ion-folder" ng-if="!album._embedded.directory_thumbnail"></i>
+
+            <img ng-src="{{ item.thumbs }}"
+                ng-if="album._embedded.directory_thumbnail"
+            />
+        </a>
+
+        <div class="caption">
+            {{ album.name }}
+        </div>
+
+    </article>
+</div>
+
+<p class="text-right">
+    Total number of items: {{ folder.children.length }}
+</p>
