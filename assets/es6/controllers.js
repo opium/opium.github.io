@@ -139,13 +139,21 @@ opiumControllers.controller(
       if (cover) {
         return {'background-image': `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .8)), url(${cover})`};
       }
-    }
+    };
 
     $scope.getCover = function() {
       if ($scope.folder && $scope.folder._embedded.directory_thumbnail) {
         return $scope.folder._embedded.directory_thumbnail.thumbnails.banner;
       }
-    }
+    };
+
+    $scope.getAlbumById = function(itemId) {
+      for (let album of $scope.folder.children) {
+        if (album.id == itemId) {
+          return album;
+        }
+      }
+    };
   }
 
 );
